@@ -1,0 +1,35 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: API-GATEWAY          # ✅ ADD THIS - missing in your yml
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true                # ✅ ADD THIS - auto discover services
+          lower-case-service-id: true  # ✅ ADD THIS - allows lowercase urls
+      routes:
+        - id: USERSERVICE
+          uri: lb://USERSERVICE
+          predicates:
+            - Path=/users/**
+
+        - id: HOTELSERVICE
+          uri: lb://HOTELSERVICE
+          predicates:
+            - Path=/hotels/**,/staffs/**
+
+        - id: RATINGSERVICES
+          uri: lb://RATINGSERVICES
+          predicates:
+            - Path=/ratings/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true            # ✅ ADD THIS - use IP instead of hostname

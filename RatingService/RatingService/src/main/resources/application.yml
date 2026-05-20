@@ -1,0 +1,21 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: RATINGSERVICES
+  #import config server in github
+  config:
+    import: optional:configserver:http://localhost:8085
+  data:
+  mangodb:
+    url: mongodb://localhost:27017
+    database: microservices
+#
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
