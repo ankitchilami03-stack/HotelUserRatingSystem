@@ -65,10 +65,8 @@ The system manages users, hotels, and ratings using distributed microservices ar
 - Fetch User Details
 - Fetch Hotel Details
 - Fetch Ratings
-- User-Hotel-Rating Mapping
-- Secure REST APIs
-- Service Discovery using Eureka
 - Centralized Configuration Management
+- Service Discovery using Eureka
 - Circuit Breaker Fallback Support
 - Inter-Service Communication using OpenFeign
 - Distributed Database Architecture
@@ -90,6 +88,22 @@ RatingService
 HotelService  
 ↓  
 Response Returned
+
+---
+
+## Configuration Management
+
+Centralized configuration is managed using Spring Cloud Config Server.
+
+Configuration files stored in GitHub Config Repository:
+
+- application.yml (Common configuration)
+- USERSERVICE.yml
+- HOTELSERVICE.yml
+- RATINGSERVICE.yml
+- APIGATEWAY.yml
+
+ConfigServer fetches these files and provides config to all services at runtime.
 
 ---
 
@@ -118,54 +132,34 @@ Protected APIs require:
 
 Authorization: Bearer `<token>`
 
-API Gateway validates every request token before forwarding to microservices.
+API Gateway validates every request before forwarding.
 
 ---
 
 ## Database Architecture
 
-### UserService
-- MySQL
-
-Stores:
-- User Details
-- Credentials
-
-### RatingService
-- MongoDB
-
-Stores:
-- Ratings
-- Reviews
-- User-Hotel Mapping
-
-### HotelService
-- PostgreSQL
-
-Stores:
-- Hotel Details
-- Hotel Information
+### UserService → MySQL
+### RatingService → MongoDB
+### HotelService → PostgreSQL
 
 ---
 
 ## How to Run
 
-Start services in this order:
-
-1. ConfigServer
-2. ServiceRegistry
-3. ApiGateway
-4. UserService
-5. HotelService
-6. RatingService
+1. ConfigServer  
+2. ServiceRegistry  
+3. ApiGateway  
+4. UserService  
+5. HotelService  
+6. RatingService  
 
 ---
 
-## Tools Used for Testing
+## Tools Used
 
 - Postman
 - Eureka Dashboard
-- Database Management Tools
+- Database Tools
 
 ---
 
